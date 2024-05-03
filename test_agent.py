@@ -1,7 +1,7 @@
 import openai
 
 # Set your OpenAI API key here
-
+openai.api_key = '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'
 
 def query_openai(prompt):
     try:
