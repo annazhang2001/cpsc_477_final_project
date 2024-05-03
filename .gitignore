@@ -6,4 +6,4 @@ slurm*
 *.sh
 wandb/*
 run_model.sh
-
+data/annaz

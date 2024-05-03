@@ -33,7 +33,7 @@ def fit_to_prompt_template(messages, label, labels_dict, use_multiturn=False):
         prompt = f'Classify the following message as either {labels_dict["ok"]} or {labels_dict["notok"]}.\nMessage: {message}\nLabel: {labels_dict[label]}'
     return(prompt)
 
-def load_dataset(tokenizer, data_path='/home/andyliu/Miniconda3/envs/anlp-hw/lib/python3.10/site-packages/data/bot_adversarial_dialogue/dialogue_datasets/bot_adversarial_dialogue_datasets_with_persona/train.txt', sample_rate = 0.1, use_multiturn=False):
+def load_dataset(tokenizer, data_path='/gpfs/radev/home/yz946/.conda/envs/redteam/lib/python3.9/site-packages/data/bot_adversarial_dialogue/dialogue_datasets/bot_adversarial_dialogue_datasets_with_persona/train.txt', sample_rate = 0.1, use_multiturn=False):
     with open(data_path, 'r') as f:
         bad_data = f.read().split('\n')
 

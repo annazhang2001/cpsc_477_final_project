@@ -30,10 +30,9 @@ import pdb
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--tokenizer-path', type=str, default='/data/datasets/models/huggingface/meta-llama/Llama-2-7b-chat-hf')
-    parser.add_argument('--model-path', type=str, default='/data/datasets/models/huggingface/meta-llama/Llama-2-7b-chat-hf')
-    
-    parser.add_argument('--data-path', type=str, default='bad_data.json')
+    parser.add_argument('--tokenizer-path', type=str, default='meta-llama/Llama-2-7b-chat-hf')
+    parser.add_argument('--model-path', type=str, default='meta-llama/Llama-2-7b-chat-hf')
+    parser.add_argument('--data-path', type=str, default='../bad_data.json')
     parser.add_argument('--multiturn', action='store_true')
     parser.add_argument('--sample-rate', type=float, default=0.1)
     parser.add_argument('--epochs', type=int, default=2)
@@ -43,7 +42,7 @@ def parse_args():
 
     parser.add_argument('--track', action = 'store_true')
     parser.add_argument('--wandb-project', type=str, default='finetune_classifier')
-    parser.add_argument('--exp-name', type=str, default='andy1107')
+    parser.add_argument('--exp-name', type=str, default='annazhang1337')
 
     args = parser.parse_args()
     return(args)
@@ -72,7 +71,7 @@ if __name__ == "__main__":
         gptq_config = GPTQConfig(bits=4, dataset = "c4", tokenizer=tokenizer)
         model = AutoModelForCausalLM.from_pretrained(args.model_path, quantization_config=gptq_config, device_map="auto")
         short_model_name = args.model_path.split('/')[-1]
-        model.save_pretrained(f"/data/tir/projects/tir3/users/andyliu/{short_model_name}_quantized")
+        model.save_pretrained(f"data/annaz/{short_model_name}_quantized")
     elif args.quantize:
         gptq_config = GPTQConfig(bits=4, disable_exllama=True)
         model = AutoModelForCausalLM.from_pretrained(args.model_path, quantization_config=gptq_config, device_map="auto")
@@ -84,14 +83,14 @@ if __name__ == "__main__":
 
     # path to save model
     short_model_name = args.model_path.split('/')[-1]
-    peft_model_id = f"/data/tir/projects/tir3/users/andyliu/{short_model_name}_finetuned_{args.exp_name}"
+    peft_model_id = f"data/annaz/{short_model_name}_finetuned_{args.exp_name}"
 
     # train and eval
     training_args = TrainingArguments(
         output_dir = peft_model_id,
         learning_rate = args.lr,
-        per_device_train_batch_size=2,
-        per_device_eval_batch_size=2,
+        per_device_train_batch_size=4,
+        per_device_eval_batch_size=4,
         num_train_epochs = args.epochs,
         # weight_decay=0.01,
         evaluation_strategy="epoch",

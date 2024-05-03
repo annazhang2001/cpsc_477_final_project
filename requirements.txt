@@ -2,7 +2,7 @@ aiohttp==3.8.6
 charset-normalizer==3.3.1
 frozenlist==1.4.0
 multidict==6.0.4
-numpy==1.22.4
+numpy
 openai==0.27.6
 pandas==1.5.3
 python-dateutil==2.8.2
@@ -16,6 +16,9 @@ accelerate==0.24.1
 sentencepiece
 huggingface-hub==0.11.0
 sentence-transformers==2.2.2
-scikit-learn==1.0.1
+scikit-learn
 matplotlib==3.5.1
-
+parlai
+trl
+peft
+evaluate

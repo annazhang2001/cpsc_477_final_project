@@ -7,6 +7,9 @@ from utils import generate_response_openai, generate_response_llama
 import torch
 from transformers import AutoTokenizer
 
+INIT = "init"
+MULTI = "multi"
+
 # take as input a LLM wrapper (prompt -> continuation)
 class model_wrapper(ABC):
     @abstractmethod
@@ -24,42 +27,33 @@ class gpt_agent(model_wrapper):
         self.agent_modelname = modelname
         self.intention = intention
         self.idx = idx
-        self.prompts = json.load(open("./prompts/gpt_prompts.json", "r"))
-
+        self.state = INIT
+        # select prompt with intention
+        self.prompts = json.load(open("./prompts/new_gpt_prompts.json", "r"))[self.intention][INIT]
+        self.role = None
         self.cached_response = None
         print(self.prompts)
         print(f"Using model {self.agent_modelname} with intention {self.intention}.")
 
+    def change_role(self, new_role):
+        self.role = new_role
+
+    def change_state_to_mult(self):
+        self.state = MULTI
+        self.prompts = json.load(open("./prompts/new_gpt_prompts.json", "r"))[MULTI]
+        # print(f"Changing state to multi-round.")
+
     def generate(self, context):
-        if isinstance(context, str):
-            #context = [{"role": "user", "content": context}]
-            context = [self.construct_initial_message(context)]
-
         completion = generate_response_openai(context, self.agent_modelname)
-        
-        if self.intention=="harmless" or self.intention=="harmful":
-            self.cached_response = completion
-        
         return completion
-
-    def construct_assistant_message_from_completion(self, completion):
-        return {"role": "assistant", "content": completion}
     
     def construct_initial_message(self, prompt):
-        self.cached_response = None
-        return {"role": "user", "content": self.prompts["init"][self.intention].replace("<TOPIC>", prompt)}
+        # The initial message will be constructed by the proposer
+        return {"role": "user", "content": self.prompts[role].replace("<TOPIC>", prompt)}
         
-    def construct_discussion_message(self, topic, feedback_ls):
-        if len(feedback_ls)==0:
-            return {"role": "user", "content": self.prompts["self-reflect"][self.intention].replace("<TOPIC>", topic)}
-        
-        feedbacks = []
-        for feedback in feedback_ls:
-            feedbacks.append("One agent response: ```{}```".format(feedback))
-        feedbacks = " ".join(feedbacks)
-        prefix_string = self.prompts["discussion"][self.intention].replace("<TOPIC>", topic).replace("<FEEDBACK>", feedbacks)
-
-        return {"role": "user", "content": prefix_string}
+    def construct_discussion_message(self, topic, feedback):
+        new_prompt = self.prompts[self.role].replace("<TOPIC>", topic).replace("<FEEDBACK>", feedbacks)
+        return {"role": "user", "content": new_prompt}
 
 
 class llama_agent(model_wrapper):
@@ -154,6 +148,7 @@ class agent_group(model_wrapper):
     def __init__(self, n_agents=2, n_discussion_rounds=0, modelname="llama-2-7b-chat", intention="neutral"): 
         self.n_agents = n_agents
         self.n_discussion_rounds = n_discussion_rounds
+        self.discussion = ""
         if isinstance(modelname, str):
             modelname = [modelname] * n_agents
         if isinstance(intention, str):
