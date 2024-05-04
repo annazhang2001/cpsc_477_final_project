@@ -21,13 +21,47 @@ import argparse
 import time
 import pdb
 
+# def get_model_score(model, tokenizer, text):
+#     inoffensive_token = tokenizer.encode('inoffensive')[1]
+#     offensive_token = tokenizer.encode('offensive')[1]
+    
+#     inputs = tokenizer(text, return_tensors="pt")['input_ids'].to(model.device)
+#     generation_output = model.generate(input_ids=inputs, max_new_tokens=3, generation_config=GenerationConfig(do_sample=False), output_scores=True, return_dict_in_generate=True)
+#     toxicity_logits = torch.softmax(generation_output.scores[0][:,[inoffensive_token,offensive_token]], dim=-1)
+#     return(toxicity_logits[:,1].item())
+
 def get_model_score(model, tokenizer, text):
-    inoffensive_token = tokenizer.encode('inoffensive')[1]
-    offensive_token = tokenizer.encode('offensive')[1]
-    inputs = tokenizer(text, return_tensors="pt")['input_ids'].to(model.device)
-    generation_output = model.generate(input_ids=inputs, max_new_tokens=3, generation_config=GenerationConfig(do_sample=False), output_scores=True, return_dict_in_generate=True)
-    toxicity_logits = torch.softmax(generation_output.scores[0][:,[inoffensive_token,offensive_token]], dim=-1)
-    return(toxicity_logits[:,1].item())
+    inoffensive_token = tokenizer.encode("inoffensive")[1]
+    offensive_token = tokenizer.encode("offensive")[1]
+
+    inputs = tokenizer(
+        text,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+        max_length=512,
+    )["input_ids"].to(model.device)
+
+    generation_output = model.generate(
+        input_ids=inputs,
+        max_new_tokens=3,
+        generation_config=GenerationConfig(do_sample=False),
+        output_scores=True,
+        return_dict_in_generate=True,
+    )
+
+    # Debugging
+    print(f"generation_output.scores: {generation_output.scores}")
+    print(f"generation_output.scores[0].shape: {generation_output.scores[0].shape}")
+    print(f"inoffensive_token: {inoffensive_token}, offensive_token: {offensive_token}")
+
+    # Process toxicity logits
+    toxicity_logits = torch.softmax(generation_output.scores[0][:, [inoffensive_token, offensive_token]], dim=-1)
+    print(f"toxicity_logits: {toxicity_logits}")
+
+    return toxicity_logits[:, 1].item()
+
+
 
 def get_api_score(client, text):
     try:
