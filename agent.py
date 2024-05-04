@@ -8,6 +8,7 @@ from utils import generate_response_openai, generate_response_llama
 import torch
 from transformers import AutoTokenizer
 from prompts.other_prompts import role_reallocation_prompt, final_message_prompt
+from datasets import load_dataset
 
 INIT = "init"
 MULTI = "multi"
@@ -299,15 +300,18 @@ def main():
     )
 
     # Test the generate function
-    red_teams = read_file_line_by_line("/gpfs/radev/project/ying_rex/yz946/homework/cpsc_477_final_project/data/red_teams.txt")
+    red_teams = "/gpfs/radev/project/ying_rex/yz946/homework/cpsc_477_final_project/data/red_teams.txt"
     output_path = f'uncensored-llama-{intention}-discussion-round-{n_discussion_rounds}.json'
+    dataset = load_dataset("text", data_files={"test": red_teams})
+
     # output_path = f'{model_name}-{intention}-discussion-round-{n_discussion_rounds}.json'
     responses = {}
-
-    for prompt in red_teams:
-        response = agent_group_instance.generate(prompt, n_discussion_rounds=n_discussion_rounds)
-        responses[prompt] = response
-        print("Success")
+    counter = 0
+    for prompt in dataset["test"]:
+        response = agent_group_instance.generate(prompt["text"], n_discussion_rounds=n_discussion_rounds)
+        responses[prompt["text"]] = response
+        counter += 1
+        print(f"Success: {counter}")
 
     with open(output_path, 'w') as f:
         json.dump(responses, f, indent=4)

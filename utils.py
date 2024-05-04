@@ -2,7 +2,6 @@ import sys, os
 import openai
 import time
 
-# openai.api_key = "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"
 
 def generate_response_openai(context, modelname):
     fails = 0
