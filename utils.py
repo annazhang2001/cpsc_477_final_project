@@ -2,6 +2,8 @@ import sys, os
 import openai
 import time
 
+# openai.api_key = "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"
+
 def generate_response_openai(context, modelname):
     fails = 0
     if modelname == "gpt-3.5-turbo-0301" or modelname == "gpt-3.5-turbo-16k-0613":
@@ -72,5 +74,5 @@ def generate_response_llama(pipeline, dialog):
         if len(generation.strip().split()) > 20:
             return generation
         num_try += 1
-    print("No long answers.")
+    # print("No long answers.")
     return generation
