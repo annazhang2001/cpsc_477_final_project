@@ -1,8 +1,6 @@
 import openai
 import os
 
-# Set your OpenAI API key here
-openai.api_key = "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"
 
 def get_toxicity_score(text):
     """
