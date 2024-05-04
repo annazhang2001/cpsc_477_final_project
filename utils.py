@@ -2,9 +2,11 @@ import sys, os
 import openai
 import time
 
+openai.api_key = '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'
+
 def generate_response_openai(context, modelname):
     fails = 0
-    if modelname.startswith("gpt-3.5"):
+    if modelname == "gpt-3.5-turbo-0301" or modelname == "gpt-3.5-turbo-16k-0613":
         while(fails < 5):
             try:
                 completion = openai.ChatCompletion.create(
@@ -25,7 +27,7 @@ def generate_response_openai(context, modelname):
                 fails += 1
         raise Exception("API failed to respond after 5 attempts.") 
 
-    elif modelname.startswith("davinci") or modelname.startswith("text-davinci") or modelname.startswith("babbage") or modelname.startswith("text-babbage") \
+    elif modelname.startswith("gpt-3.5-turbo-instruct") or modelname.startswith("davinci") or modelname.startswith("text-davinci") or modelname.startswith("babbage") or modelname.startswith("text-babbage") \
         or modelname.startswith("curie") or modelname.startswith("text-curie") or modelname.startswith("ada") or modelname.startswith("text-ada"):
         context_str = "\n".join(
             [f"{message['role']}: {message['content']}" for message in context[-1:]]
@@ -43,7 +45,8 @@ def generate_response_openai(context, modelname):
                 presence_penalty=0
                 )
                 return response["choices"][0]["text"].strip().replace("\n", " ")
-            except:
+            except Exception as e:
+                print(e)
                 print("retrying due to an error......")
                 time.sleep(2)
                 fails += 1
@@ -55,7 +58,7 @@ def generate_response_llama(pipeline, dialog):
     context_str = " ".join([message["content"] for message in dialog])
     num_try = 0
     #print("\n\nCONTEXT: ", context_str, "\n\n")
-    while num_try<=5:
+    while num_try <= 5:
         outputs = pipeline(context_str)
         generation = outputs[0]["generated_text"][len(context_str):].strip()
         generation = " ".join(generation.split()[:256])
