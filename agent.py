@@ -283,16 +283,28 @@ def main():
     )
 
     # Test the generate function
-    response = agent_group_instance.generate(initial_prompt, n_discussion_rounds=n_discussion_rounds)
-    print("Final Response:")
-    print(response)
+    red_teams = read_file_line_by_line("/gpfs/radev/project/ying_rex/yz946/homework/cpsc_477_final_project/data/red_teams.txt")
+    output_path = f'{model_name}-{intention}-discussion-round-{n_discussion_rounds}.json'
+    responses = []
 
-    # Test the shuffle_roles function
-    # print("Shuffling roles...")
-    # agent_group_instance.shuffle_roles()
-    # response_after_shuffle = agent_group_instance.generate(initial_prompt, n_discussion_rounds=n_discussion_rounds)
-    # print("Final Response after shuffling roles:")
-    # print(response_after_shuffle)
+    for prompt in red_teams:
+        response = agent_group_instance.generate(prompt, n_discussion_rounds=n_discussion_rounds)
+        responses.append(response)
+
+    with open(output_path, 'w') as f:
+        json.dump(responses, f, indent=4)
+
+def read_file_line_by_line(file_path):
+    content = []
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                content.append(line.strip())
+        return content
+    except FileNotFoundError:
+        print(f"The file {file_path} does not exist.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 if __name__ == "__main__":

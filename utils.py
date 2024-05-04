@@ -2,9 +2,6 @@ import sys, os
 import openai
 import time
 
-
-openai.api_key = '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'
-
 def generate_response_openai(context, modelname):
     fails = 0
     if modelname == "gpt-3.5-turbo-0301" or modelname == "gpt-3.5-turbo-16k-0613":
