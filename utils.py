@@ -58,7 +58,7 @@ def generate_response_llama(pipeline, dialog):
     num_try = 0
     #print("\n\nCONTEXT: ", context_str, "\n\n")
     while num_try <= 5:
-        outputs = pipeline(context_str)
+        outputs = pipeline(context_str, max_length=2048, truncation=True)
         generation = outputs[0]["generated_text"][len(context_str):].strip()
         generation = " ".join(generation.split()[:256])
         '''

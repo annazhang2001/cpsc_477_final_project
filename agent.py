@@ -279,7 +279,7 @@ def main():
     n_agents = 4
 
     # discussion round number: 0, 1, 2
-    n_discussion_rounds = 0
+    n_discussion_rounds = 1
 
     model_name = "cognitivecomputations/WizardLM-7B-Uncensored"
     # model_name = "gpt-3.5-turbo-instruct"
