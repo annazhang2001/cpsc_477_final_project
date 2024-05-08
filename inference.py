@@ -51,9 +51,9 @@ def get_model_score(model, tokenizer, text):
     )
 
     # Debugging
-    print(f"generation_output.scores: {generation_output.scores}")
-    print(f"generation_output.scores[0].shape: {generation_output.scores[0].shape}")
-    print(f"inoffensive_token: {inoffensive_token}, offensive_token: {offensive_token}")
+    # print(f"generation_output.scores: {generation_output.scores}")
+    # print(f"generation_output.scores[0].shape: {generation_output.scores[0].shape}")
+    # print(f"inoffensive_token: {inoffensive_token}, offensive_token: {offensive_token}")
 
     # Process toxicity logits
     toxicity_logits = torch.softmax(generation_output.scores[0][:, [inoffensive_token, offensive_token]], dim=-1)

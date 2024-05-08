@@ -1,0 +1,170 @@
+{
+    "llama-harmful-round-0_llama-harmful-round-1": [
+        8.773760354949712,
+        7.807958686732137e-16
+    ],
+    "llama-harmful-round-0_llama-harmless-round-0": [
+        3.069929120495468,
+        0.002439952161543397
+    ],
+    "llama-harmful-round-0_llama-neutral-round-1": [
+        11.16645897270888,
+        8.585729230572997e-23
+    ],
+    "llama-harmful-round-0_llama-neutral-round-2": [
+        8.814100795716207,
+        6.028382295804122e-16
+    ],
+    "llama-harmful-round-0_llama-harmless-round-1": [
+        8.93877542565327,
+        2.7019632762938557e-16
+    ],
+    "llama-harmful-round-0_llama-harmless-round-2": [
+        10.364983581094243,
+        2.0949028610124597e-20
+    ],
+    "llama-harmful-round-1_llama-harmful-round-0": [
+        -8.773760354949712,
+        7.807958686732137e-16
+    ],
+    "llama-harmful-round-1_llama-harmless-round-0": [
+        -6.6922360397764455,
+        2.1841439159735637e-10
+    ],
+    "llama-harmful-round-1_llama-neutral-round-1": [
+        2.4341450241449336,
+        0.015809381843587038
+    ],
+    "llama-harmful-round-1_llama-neutral-round-2": [
+        0.5106728023024216,
+        0.6101462187914808
+    ],
+    "llama-harmful-round-1_llama-harmless-round-1": [
+        0.47676778742438164,
+        0.6340505996860337
+    ],
+    "llama-harmful-round-1_llama-harmless-round-2": [
+        1.6246405129586161,
+        0.10582196160575978
+    ],
+    "llama-harmless-round-0_llama-harmful-round-0": [
+        -3.069929120495468,
+        0.002439952161543397
+    ],
+    "llama-harmless-round-0_llama-harmful-round-1": [
+        6.6922360397764455,
+        2.1841439159735637e-10
+    ],
+    "llama-harmless-round-0_llama-neutral-round-1": [
+        8.411379904509111,
+        7.793071849820555e-15
+    ],
+    "llama-harmless-round-0_llama-neutral-round-2": [
+        6.673527452088291,
+        2.424217554718687e-10
+    ],
+    "llama-harmless-round-0_llama-harmless-round-1": [
+        6.873995391543648,
+        7.85968722889732e-11
+    ],
+    "llama-harmless-round-0_llama-harmless-round-2": [
+        8.01151484239867,
+        9.373982194513407e-14
+    ],
+    "llama-neutral-round-1_llama-harmful-round-0": [
+        -11.16645897270888,
+        8.585729230572997e-23
+    ],
+    "llama-neutral-round-1_llama-harmful-round-1": [
+        -2.4341450241449336,
+        0.015809381843587038
+    ],
+    "llama-neutral-round-1_llama-harmless-round-0": [
+        -8.411379904509111,
+        7.793071849820555e-15
+    ],
+    "llama-neutral-round-1_llama-neutral-round-2": [
+        -1.7580010468895677,
+        0.08028472803965687
+    ],
+    "llama-neutral-round-1_llama-harmless-round-1": [
+        -1.7494118216750012,
+        0.08176143930370798
+    ],
+    "llama-neutral-round-1_llama-harmless-round-2": [
+        -0.9475020720940527,
+        0.34453214980536595
+    ],
+    "llama-neutral-round-2_llama-harmful-round-0": [
+        -8.814100795716207,
+        6.028382295804122e-16
+    ],
+    "llama-neutral-round-2_llama-harmful-round-1": [
+        -0.5106728023024216,
+        0.6101462187914808
+    ],
+    "llama-neutral-round-2_llama-harmless-round-0": [
+        -6.673527452088291,
+        2.424217554718687e-10
+    ],
+    "llama-neutral-round-2_llama-neutral-round-1": [
+        1.7580010468895677,
+        0.08028472803965687
+    ],
+    "llama-neutral-round-2_llama-harmless-round-1": [
+        -0.04227576537484096,
+        0.9663212512708542
+    ],
+    "llama-neutral-round-2_llama-harmless-round-2": [
+        1.0586956309299382,
+        0.2910217921230118
+    ],
+    "llama-harmless-round-1_llama-harmful-round-0": [
+        -8.93877542565327,
+        2.7019632762938557e-16
+    ],
+    "llama-harmless-round-1_llama-harmful-round-1": [
+        -0.47676778742438164,
+        0.6340505996860337
+    ],
+    "llama-harmless-round-1_llama-harmless-round-0": [
+        -6.873995391543648,
+        7.85968722889732e-11
+    ],
+    "llama-harmless-round-1_llama-neutral-round-1": [
+        1.7494118216750012,
+        0.08176143930370798
+    ],
+    "llama-harmless-round-1_llama-neutral-round-2": [
+        0.04227576537484096,
+        0.9663212512708542
+    ],
+    "llama-harmless-round-1_llama-harmless-round-2": [
+        1.059545185108314,
+        0.29063589901593606
+    ],
+    "llama-harmless-round-2_llama-harmful-round-0": [
+        -10.364983581094243,
+        2.0949028610124597e-20
+    ],
+    "llama-harmless-round-2_llama-harmful-round-1": [
+        -1.6246405129586161,
+        0.10582196160575978
+    ],
+    "llama-harmless-round-2_llama-harmless-round-0": [
+        -8.01151484239867,
+        9.373982194513407e-14
+    ],
+    "llama-harmless-round-2_llama-neutral-round-1": [
+        0.9475020720940527,
+        0.34453214980536595
+    ],
+    "llama-harmless-round-2_llama-neutral-round-2": [
+        -1.0586956309299382,
+        0.2910217921230118
+    ],
+    "llama-harmless-round-2_llama-harmless-round-1": [
+        -1.059545185108314,
+        0.29063589901593606
+    ]
+}
